@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="simpleBlogComment:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="simpleBlogComment.war">
+      <element id="artifact" artifact-name="simpleBlogComment:war exploded" />
+    </root>
+  </artifact>
+</component>
