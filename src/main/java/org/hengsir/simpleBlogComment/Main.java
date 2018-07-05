@@ -15,12 +15,12 @@ import java.util.Date;
  */
 @SpringBootApplication
 @MapperScan("org.hengsir.simpleBlogComment.dao.mapper")
-public class Main extends SpringBootServletInitializer {
+public class Main{
 
-    @Override
+   /* @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Main.class);
-    }
+    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
