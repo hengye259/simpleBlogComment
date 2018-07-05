@@ -29,14 +29,14 @@ public class CommentController {
         return "test";
     }
 
-    //@CrossOrigin("http://localhost:8081")
+    @CrossOrigin("http://www.hengsir.cn:8081")
     @RequestMapping("/get-comments")
     @ResponseBody
     public List<Comment> getComments(String blogName) {
         return commentDao.getComment(blogName);
     }
 
-    //@CrossOrigin("http://localhost:8081")
+    @CrossOrigin("http://www.hengsir.cn:8081")
     @RequestMapping(value = "/to-comment", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public Object insertComment(String text, String blogName, String author) {
