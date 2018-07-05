@@ -1,1 +1,1 @@
-nohup java -jar binary/target/simpleBlogComment.jar &
+nohup java -jar target/simpleBlogComment.jar &
