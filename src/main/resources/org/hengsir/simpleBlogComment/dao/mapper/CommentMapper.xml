@@ -41,7 +41,7 @@
     </select>
 
     <insert id="insertToday" parameterType="org.hengsir.simpleBlogComment.dao.Comment">
-        insert into comment(blog_id,com_text,com_author) values (#{blogId},#{text},#{author})
+        insert into comment_today(blog_id,com_text,com_author) values (#{blogId},#{text},#{author})
     </insert>
 
     <delete id="clearToday">
