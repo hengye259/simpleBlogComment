@@ -46,4 +46,24 @@ public class CommentDaoImpl implements CommentDao{
     public Blog selectBlogByName(String blogName) {
         return commentMapper.selectBlogByName(blogName);
     }
+
+    @Override
+    public Blog selectBlogById(int id) {
+        return commentMapper.selectBlogById(id);
+    }
+
+    @Override
+    public List<Comment> selectToday() {
+        return commentMapper.selectToday();
+    }
+
+    @Override
+    public void insertToday(Comment comment) {
+        commentMapper.insertToday(comment);
+    }
+
+    @Override
+    public void clearToday() {
+        commentMapper.clearToday();
+    }
 }

@@ -14,7 +14,18 @@ import java.util.List;
 @Component
 public interface CommentMapper {
     List<Comment> getComment(@Param("blogName") String blogName);
+
     void insertComment(Comment comment);
+
     void createBlog(@Param("blogName") String blogName);
+
     Blog selectBlogByName(@Param("blogName") String blogName);
+
+    Blog selectBlogById(@Param("id") int id);
+
+    List<Comment> selectToday();
+
+    void insertToday(Comment comment);
+
+    void clearToday();
 }

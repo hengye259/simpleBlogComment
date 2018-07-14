@@ -23,6 +23,10 @@
         select * from blog where blog_name = #{blogName}
     </select>
 
+    <select id="selectBlogById" resultMap="blogResult" parameterType="java.lang.Integer">
+        select * from blog where id = #{id}
+    </select>
+
     <insert id="createBlog" parameterType="java.lang.String">
         insert into blog (blog_name) values (#{blogName})
     </insert>
@@ -30,5 +34,18 @@
     <insert id="insertComment" parameterType="org.hengsir.simpleBlogComment.dao.Comment">
         insert into comment(blog_id,com_text,com_author) values (#{blogId},#{text},#{author})
     </insert>
-    
+
+    <!--今日评论处理-->
+    <select id="selectToday" resultMap="commResult">
+        select * from comment_today
+    </select>
+
+    <insert id="insertToday" parameterType="org.hengsir.simpleBlogComment.dao.Comment">
+        insert into comment(blog_id,com_text,com_author) values (#{blogId},#{text},#{author})
+    </insert>
+
+    <delete id="clearToday">
+        delete from comment_today
+    </delete>
+
 </mapper>

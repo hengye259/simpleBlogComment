@@ -1,6 +1,8 @@
 package org.hengsir.simpleBlogComment.dao;
 
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 /**
@@ -8,8 +10,19 @@ import java.util.List;
  * @date 2018/7/3 下午4:03
  */
 public interface CommentDao {
-    List<Comment> getComment( String blogName);
+    List<Comment> getComment(String blogName);
+
     boolean insertComment(Comment comment);
+
     boolean createBlog(String blogName);
+
     Blog selectBlogByName(String blogName);
+
+    Blog selectBlogById(int id);
+
+    List<Comment> selectToday();
+
+    void insertToday(Comment comment);
+
+    void clearToday();
 }
