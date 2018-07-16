@@ -21,7 +21,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Component
 public class WebServer  implements WebSocketHandler{
     //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
-    private static CopyOnWriteArraySet<WebServer> webSocketSet;
+    private static CopyOnWriteArraySet<WebSocketSession> webSessionSet;
 
     @Autowired
     private CommentDao commentDao;
@@ -29,15 +29,11 @@ public class WebServer  implements WebSocketHandler{
 
 
     static{
-        webSocketSet = new CopyOnWriteArraySet<WebServer>();
+        webSessionSet = new CopyOnWriteArraySet<>();
     }
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private WebSocketSession session;
 
-
-    public void sendMessage(TextMessage message) throws IOException {
-        this.session.sendMessage(message);
-    }
 
     /**
      * 群发自定义消息
@@ -46,7 +42,7 @@ public class WebServer  implements WebSocketHandler{
      * @throws IOException
      */
     public static void sendInfo(String message) throws IOException {
-        for (WebServer item : webSocketSet) {
+        for (WebSocketSession item : webSessionSet) {
             try {
                 item.sendMessage(new TextMessage(message));
             } catch (IOException e) {
@@ -59,7 +55,7 @@ public class WebServer  implements WebSocketHandler{
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
         this.session = webSocketSession;
         //连接成功
-        webSocketSet.add(this);
+        webSessionSet.add(webSocketSession);
         //给连接进来的客户端发送今天留言
         /*List<Comment> todays = commentDao.selectToday();
         List<Blog> blogs = new ArrayList<>();
@@ -82,7 +78,7 @@ public class WebServer  implements WebSocketHandler{
 
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
-        webSocketSet.remove(this);
+        webSessionSet.remove(webSocketSession);
     }
 
     @Override
