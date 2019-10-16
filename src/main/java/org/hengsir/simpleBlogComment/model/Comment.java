@@ -1,4 +1,4 @@
-package org.hengsir.simpleBlogComment.dao;
+package org.hengsir.simpleBlogComment.model;
 
 /**
  * 评论实体

@@ -1,7 +1,8 @@
 package org.hengsir.simpleBlogComment.dao;
 
 
-import org.springframework.stereotype.Component;
+import org.hengsir.simpleBlogComment.model.Blog;
+import org.hengsir.simpleBlogComment.model.Comment;
 
 import java.util.List;
 

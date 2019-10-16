@@ -1,6 +1,8 @@
 package org.hengsir.simpleBlogComment.dao;
 
 import org.hengsir.simpleBlogComment.dao.mapper.CommentMapper;
+import org.hengsir.simpleBlogComment.model.Blog;
+import org.hengsir.simpleBlogComment.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

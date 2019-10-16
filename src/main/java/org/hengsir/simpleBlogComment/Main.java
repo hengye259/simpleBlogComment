@@ -14,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,9 +28,9 @@ import java.util.Date;
 @EnableWebSocket
 public class Main{
 
-    @Value("${http.port}")
+    /*@Value("${http.port}")
     private int port;
-
+*/
    /* @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Main.class);
@@ -40,7 +41,7 @@ public class Main{
         System.out.println("-----------------嘤嘤嘤嘤嘤~~~~启动成功！！！！！------------------" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
     }
 
-    @Bean
+    /*@Bean
     public ServletWebServerFactory servletContainer(){
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
         tomcat.addAdditionalTomcatConnectors(createStandardConnector());
@@ -54,5 +55,5 @@ public class Main{
         connector.setSecure(false);
         connector.setRedirectPort(443);
         return connector;
-    }
+    }*/
 }

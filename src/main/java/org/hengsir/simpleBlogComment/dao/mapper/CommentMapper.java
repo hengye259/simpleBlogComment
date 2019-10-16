@@ -1,8 +1,8 @@
 package org.hengsir.simpleBlogComment.dao.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.hengsir.simpleBlogComment.dao.Blog;
-import org.hengsir.simpleBlogComment.dao.Comment;
+import org.hengsir.simpleBlogComment.model.Blog;
+import org.hengsir.simpleBlogComment.model.Comment;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

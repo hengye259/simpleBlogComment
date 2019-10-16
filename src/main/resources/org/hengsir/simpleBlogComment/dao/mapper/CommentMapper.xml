@@ -2,21 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.hengsir.simpleBlogComment.dao.mapper.CommentMapper">
 
-    <resultMap id="commResult" type="org.hengsir.simpleBlogComment.dao.Comment">
+    <resultMap id="commResult" type="org.hengsir.simpleBlogComment.model.Comment">
         <id property="id" column="com_id"></id>
         <result property="blogId" column="blog_id" />
         <result property="text" column="com_text" />
         <result property="author" column="com_author" />
     </resultMap>
 
-    <resultMap id="blogResult" type="org.hengsir.simpleBlogComment.dao.Blog">
+    <resultMap id="blogResult" type="org.hengsir.simpleBlogComment.model.Blog">
         <id property="id" column="id"></id>
         <result property="blogName" column="blog_name" />
     </resultMap>
 
     <select id="getComment" resultMap="commResult" parameterType="java.lang.String">
         select * from comment where blog_id in (select id from blog where blog_name = #{blogName})
-        order by com_id
+        order by com_id desc
     </select>
 
     <select id="selectBlogByName" resultMap="blogResult" parameterType="java.lang.String">
@@ -31,7 +31,7 @@
         insert into blog (blog_name) values (#{blogName})
     </insert>
 
-    <insert id="insertComment" parameterType="org.hengsir.simpleBlogComment.dao.Comment">
+    <insert id="insertComment" parameterType="org.hengsir.simpleBlogComment.model.Comment">
         insert into comment(blog_id,com_text,com_author) values (#{blogId},#{text},#{author})
     </insert>
 
@@ -40,7 +40,7 @@
         select * from comment_today
     </select>
 
-    <insert id="insertToday" parameterType="org.hengsir.simpleBlogComment.dao.Comment">
+    <insert id="insertToday" parameterType="org.hengsir.simpleBlogComment.model.Comment">
         insert into comment_today(blog_id,com_text,com_author) values (#{blogId},#{text},#{author})
     </insert>
 
