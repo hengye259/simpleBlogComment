@@ -9,6 +9,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpUtil;
 import io.netty.handler.codec.http.HttpVersion;
@@ -107,6 +108,11 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
             buf.release();
             HttpUtil.setContentLength(res, res.content().readableBytes());
         }
+        //允许跨域访问
+        res.headers().set("Access-Control-Allow-Origin","*");
+        res.headers().set("Access-Control-Allow_Headers","*");//允许headers自定义
+        res.headers().set("Access-Control-Allow-Methods","GET, POST, PUT,DELETE");
+        res.headers().set("Access-Control-Allow_Credentials","true");
         // 发送应答消息
         ChannelFuture cf = ctx.channel().writeAndFlush(res);
         // 非法连接直接关闭连接
