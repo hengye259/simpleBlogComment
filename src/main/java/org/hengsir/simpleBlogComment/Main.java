@@ -1,11 +1,14 @@
 package org.hengsir.simpleBlogComment;
 
+import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
+import org.apache.tomcat.websocket.server.WsSci;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -28,9 +31,11 @@ import java.util.Date;
 @EnableWebSocket
 public class Main{
 
-    /*@Value("${http.port}")
-    private int port;
-*/
+    @Value("${http.port}")
+    private int httpPort;
+
+    @Value("${server.port}")
+    private int sslPort;
    /* @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Main.class);
@@ -51,9 +56,21 @@ public class Main{
     // 配置http
     private Connector createStandardConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-        connector.setPort(port);
+        connector.setPort(httpPort);
         connector.setSecure(false);
-        connector.setRedirectPort(443);
+        connector.setRedirectPort(sslPort);
         return connector;
     }*/
+
+    /**
+     * 配置wss。
+     *
+     * @return
+     */
+    /*@Bean
+    public TomcatContextCustomizer tomcatContextCustomizer() {
+        System.out.println("TOMCATCONTEXTCUSTOMIZER INITILIZED");
+        return context -> context.addServletContainerInitializer(new WsSci(), null);
+    }*/
+
 }

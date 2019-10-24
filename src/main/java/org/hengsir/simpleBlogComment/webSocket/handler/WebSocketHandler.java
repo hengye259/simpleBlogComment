@@ -25,6 +25,7 @@ import org.hengsir.simpleBlogComment.config.WebSocketConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -40,6 +41,12 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
 
     @Autowired
     private Hanlder handler;
+
+    /**
+     * ws端口
+     */
+    @Value("${ws.port}")
+    private int port;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg)
@@ -61,7 +68,6 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
     }
 
     private void handleHttpRequest(ChannelHandlerContext ctx, FullHttpRequest req) {
-        int port = WebSocketConfig.PORT;
         // Http解码失败，向服务器指定传输的协议为Upgrade：websocket
         if (!req.decoderResult().isSuccess() || (!"websocket".equals(req.headers().get("Upgrade")))) {
             sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));

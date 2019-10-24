@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -31,8 +32,11 @@ public class DefaultSocketServer implements InitializingBean, DisposableBean{
     private EventLoopGroup bossGroup;
     private EventLoopGroup workGroup;
 
-    //@Value("${netty.server.port}")
-    private Integer port;
+    /**
+     * ws端口
+     */
+    @Value("${ws.port}")
+    private int port;
 
     @Autowired
     private DefaultChannelInitializer myChannelInitializer;
@@ -41,7 +45,6 @@ public class DefaultSocketServer implements InitializingBean, DisposableBean{
      * 初始化完，启动Server
      */
     public void afterPropertiesSet() throws Exception {
-        port = WebSocketConfig.PORT;
         Assert.notNull(port, "port must not be null");
         new Thread(() -> {
             try {
