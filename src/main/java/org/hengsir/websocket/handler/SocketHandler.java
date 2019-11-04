@@ -1,10 +1,10 @@
-package org.hengsir.simpleBlogComment.webSocket.handler;
+package org.hengsir.websocket.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.hengsir.novel.controller.WuJiNovelController;
 import org.hengsir.simpleBlogComment.dao.CommentDao;
 import org.hengsir.simpleBlogComment.model.Blog;
 import org.hengsir.simpleBlogComment.model.Comment;
@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @date 2019/3/13 上午10:59
  */
 @Component
-public class CommentHandler implements Hanlder {
+public class SocketHandler implements Hanlder {
     private static final Logger logger   = LoggerFactory.getLogger(Hanlder.class);
     //处理聊天的线程池
     protected static final ExecutorService chatExec = Executors.newFixedThreadPool(2);
@@ -52,6 +52,9 @@ public class CommentHandler implements Hanlder {
 
     @Autowired
     private CommentDao commentDao;
+
+    @Autowired
+    private WuJiNovelController wuJiNovelController;
 
 
     static {
@@ -124,7 +127,7 @@ public class CommentHandler implements Hanlder {
                     notify.setCode(finalCode);
                     notify.setMessage(finalBlog.getBlogName() + "有新留言");
                     notify.setType(TypeEnum.NOTIFY.getType());
-                    CommentHandler.this.notifyAll(context, JSON.toJSONString(notify));
+                    SocketHandler.this.notifyAll(context, JSON.toJSONString(notify));
                 }).start();
             } else {
                 code = "FC";
@@ -135,7 +138,7 @@ public class CommentHandler implements Hanlder {
         response.setType(TypeEnum.TO_COMMENTS.getType());
         response.setCode(code);
         response.setMessage(message);
-        response.setCount(CommentHandler.count);
+        response.setCount(SocketHandler.count);
         System.out.println("返回" + JSON.toJSONString(response));
         return response;
     }
@@ -181,12 +184,12 @@ public class CommentHandler implements Hanlder {
         response.setCode(code);
         response.setComments(list);
         response.setMessage(message);
-        response.setCount(CommentHandler.count);
+        response.setCount(SocketHandler.count);
         System.out.println("返回" + JSON.toJSONString(response));
         return response;
     }
 
-    public Response handle(DefaultContext context) throws IOException {
+    public Object handle(DefaultContext context) throws IOException {
         Request req = JSON.parseObject(context.getRequestJson(), Request.class);
         System.out.println(JSON.toJSONString(req));
         int type = req.getType();
@@ -198,6 +201,8 @@ public class CommentHandler implements Hanlder {
             case 1:
                 resp = getComments(req);
                 break;
+            case 10:
+                return wuJiNovelController.parse(req);
             default:
                 break;
         }
@@ -222,7 +227,7 @@ public class CommentHandler implements Hanlder {
                 logger.info("req={}", context.getRequestJson());
                 //处理并得到结果
                 try {
-                    Response resp = handle(context);
+                    Object resp = handle(context);
                     sendToWeb(context, JSON.toJSONString(resp));
                 } catch (IOException e) {
                     e.printStackTrace();

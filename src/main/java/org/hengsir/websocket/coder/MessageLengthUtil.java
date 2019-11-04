@@ -1,4 +1,4 @@
-package org.hengsir.simpleBlogComment.webSocket.coder;
+package org.hengsir.websocket.coder;
 
 import io.netty.util.AsciiString;
 

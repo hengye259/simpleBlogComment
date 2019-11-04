@@ -1,4 +1,4 @@
-package org.hengsir.simpleBlogComment.webSocket.coder;
+package org.hengsir.websocket.coder;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

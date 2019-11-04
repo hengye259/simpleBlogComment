@@ -1,4 +1,4 @@
-package org.hengsir.simpleBlogComment.webSocket.handler;
+package org.hengsir.websocket.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -9,7 +9,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpUtil;
 import io.netty.handler.codec.http.HttpVersion;
@@ -21,31 +20,26 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import io.netty.util.CharsetUtil;
-import org.hengsir.simpleBlogComment.config.WebSocketConfig;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 /**
  * @author hengsir
  * @date 2019/3/12 下午3:37
  */
-@Component
 @ChannelHandler.Sharable
+@Data
 public class WebSocketHandler extends ChannelInboundHandlerAdapter {
     private Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
     //用于websocket握手的处理类
     private WebSocketServerHandshaker handshaker;
 
-    @Autowired
     private Hanlder handler;
 
     /**
      * ws端口
      */
-    @Value("${ws.port}")
     private int port;
 
     @Override

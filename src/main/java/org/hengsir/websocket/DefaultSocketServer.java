@@ -1,4 +1,4 @@
-package org.hengsir.simpleBlogComment.webSocket;
+package org.hengsir.websocket;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -6,7 +6,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.hengsir.simpleBlogComment.config.WebSocketConfig;
+import lombok.Data;
 import org.hengsir.simpleBlogComment.model.SocketGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -22,7 +23,7 @@ import org.springframework.util.Assert;
  *
  * @version 1.0-SNAPSHOT
  */
-@Component
+@Data
 public class DefaultSocketServer implements InitializingBean, DisposableBean{
 
     private static final Logger log = LoggerFactory.getLogger(DefaultSocketServer.class);
@@ -35,10 +36,8 @@ public class DefaultSocketServer implements InitializingBean, DisposableBean{
     /**
      * ws端口
      */
-    @Value("${ws.port}")
     private int port;
 
-    @Autowired
     private DefaultChannelInitializer myChannelInitializer;
 
     /**

@@ -1,4 +1,4 @@
-package org.hengsir.simpleBlogComment.webSocket.handler;
+package org.hengsir.websocket.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 

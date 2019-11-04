@@ -1,7 +1,7 @@
 package org.hengsir.simpleBlogComment.model;
 
 import io.netty.channel.ChannelHandlerContext;
-import org.hengsir.simpleBlogComment.webSocket.handler.WebSocketHandler;
+import org.hengsir.websocket.handler.WebSocketHandler;
 
 /**
  * @author hengsir

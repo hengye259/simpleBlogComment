@@ -1,4 +1,4 @@
-package org.hengsir.simpleBlogComment.webSocket;
+package org.hengsir.websocket;
 
 import com.alibaba.fastjson.JSON;
 import io.netty.channel.Channel;
